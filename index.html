@@ -8,7 +8,7 @@
 </head>
 
 <body> <!-- write your html code here -->
-  <div class="container">
+  <div class="main-container">
     <div class="landing">
       <div class="header">
         <div class="title">
@@ -18,10 +18,36 @@
         <div class="subtitle">OPEN DIGITAL COMMUNITY LIBRARY</div>
       </div>
     </div>
+    
     <div class="logic">
-      <div class="nav"></div>
-      <div class="newbook"></div>
-      <div class="collections"></div>
+      <form action="#" method="post" class="form-container">
+        <div class="form-control" id="title">
+          <label for="title">Title of the Book:</label><br>
+          <input type="text" id='title' name="title" class="inputBox" placeholder="Eg: Siddhartha">
+          <small>Error Message</small>
+        </div>
+
+        <div class="form-control" id="author">
+          <label for="author">Name of the Author:</label><br>
+          <input type="text" id='author' name="author" class="inputBox" placeholder="Eg: Hermann Hesse">
+          <small>Error Message</small>
+        </div>
+
+        <div class="form-control" id="year">
+          <label for="year">Year of Publish:</label><br>
+          <input type="year" id='year' name="year" class="inputBox" placeholder="Eg: 1922">
+          <small>Error Message</small>
+        </div>
+
+        <input type="radio" name="slider" id="yes-radio">
+        <input type="radio" name="slider" id="no-radio" checked>
+
+        <div class="buttonGroup">
+          <div id="btn"></div>
+          <label for="yes-radio" class="toggle_btn">YES</label>
+          <label for="no-radio" class="toggle_btn">NO</label>
+        </div>
+      </form>
     </div>
   </div>
   <script type='text/javascript' src='scripts/script.js'></script>
