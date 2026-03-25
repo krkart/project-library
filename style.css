@@ -1,54 +1,68 @@
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
-}
-
-:root {
-  --btn-bg: linear-gradient(to right, olivedrab, orange, gold);
-  --btn-border: darkcyan;
-  font-family: monospace;
-  font-weight: 500;
 }
 
 body {
   background-color: bisque;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .landing {
+  padding: 0 1%;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;  /* main axis */
+  align-items: center;  /* cross axis */
   min-height: 100vh;
-  width: 30vw;
+  min-width: 30vw;
+  width: min-content;
   position: absolute;
-  background: url('./assets/images/odin-digital-3.jpg') no-repeat left top / cover;
+  background: url('./assets/images/odin-digital.jpg') no-repeat left top / cover;
+  overflow: hidden;
 }
 
 .header {
+  overflow: hidden;
   color: bisque;
 }
 
 .title {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  place-content: center center;
   gap: 5%;
   margin-bottom: 5%;
 }
 
+.logo {
+  min-width: 16px;
+}
+
 .title-text {
-  font-family: Arial, 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', sans-serif;
-  font-size: 5.5rem;
+  font-size: clamp(3.5rem, 7.5vw, 5rem);
   font-weight: 900;
-  letter-spacing: 0.8rem;
+  letter-spacing: clamp(0.0rem, 1vw, 0.6rem);
 }
 
 .subtitle {
   font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   font-style: italic;
-  font-size: 1rem;
+  text-align: center;
+  font-size: clamp(0.6rem, 5vw, 1rem);
   font-weight: 600;
-  letter-spacing: 0.4rem;
+  letter-spacing: clamp(0.2rem, 1vw, 0.4rem);
+}
+
+.logic {
+  padding: 0 1%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  /* main axis */
+  align-items: center;  /* cross axis */
+  min-height: 100vh;
+  min-width: 70vw;
+  width: min-content;
+  position: absolute;
 }
