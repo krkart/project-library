@@ -55,4 +55,25 @@ regForm.addEventListener('submit', (e) => {
     }
 });
 
+const myLibrary = [ Siddhartha ];
+
+function Book(cover, title, author, year, readStatus) {
+  const uuid = window.crypto.randomUUID();
+  this.uuid = uuid;
+  this.cover = cover;
+  this.title = title;
+  this.author = author;
+  this.year = year;
+  this.readStatus = (readStatus === 'YES')?true:false;
+  const status = this.readStatus?'finished reading.':'not read yet.';
+
+  this.info = `${title} + ' by ' + ${author} + ', ' + 'published on ' + 
+        ${year} + ', ' + ${status}`;
+}
+
+const Siddhartha = new Book("./assets/covers/siddhartha.jpg", "Siddhartha", "Hermann Hesse", 1922, true);
+
+function addBookToLibrary() {
+  title.textContent
+}
 
