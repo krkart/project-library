@@ -2,12 +2,32 @@ const modal = document.getElementById('formModal');
 const openBtn = document.getElementById('openBtn');
 const closeBtn = document.getElementById('closeBtn');
 const regForm = document.getElementById('regForm');
+const bookList = document.getElementById('books');
 
 // Open/Close logic
 openBtn.addEventListener('click', () => modal.style.display = 'flex');
 closeBtn.addEventListener('click', () => modal.style.display = 'none');
 
-// Validation logic
+// List of books array
+const myLibrary = [];
+
+// Constructor to create Book info
+function Book(id, title, author, year, readStatus) {
+    this.id = id;
+    this.title = title;
+    this.author = author;
+    this.year = year;
+    this.readStatus = (readStatus === 'Yes') ? true : false;
+    const status = this.readStatus ? `Finished reading` : `Not read yet`;
+
+    this.info = `Assigned ID: ${id}
+            Title of Book: ${title}
+            Name of Author: ${author}
+            Published Year: ${year}
+            Status: ${status}.`;
+}
+
+// Validation & Books Array Main Logic
 regForm.addEventListener('submit', (e) => {
     e.preventDefault(); // Stop page refresh
 
@@ -22,8 +42,8 @@ regForm.addEventListener('submit', (e) => {
         document.getElementById('titleError').innerText = "";
     }
     // 2. Name Check
-    const name = document.getElementById('name');
-    if (name.value.trim() === "") {
+    const author = document.getElementById('name');
+    if (author.value.trim() === "") {
         document.getElementById('nameError').innerText = "Name is required";
         isValid = false;
     } else {
@@ -49,31 +69,31 @@ regForm.addEventListener('submit', (e) => {
     }
 
     if (isValid) {
+        function addBookToLibrary() {
+            const uuidKey = window.crypto.randomUUID(); // Generate the UUID string
+            const myObj = {};
+
+            // Use the generated UUID as a dynamic property name (field)
+            myObj[uuidKey] = new Book(uuidKey, title.value, author.value, year.value, status.parentElement.innerText);
+            myLibrary.push(myObj[uuidKey]);
+        }
+        
+        console.log(status.parentElement.innerText);
         alert("Your new book is added succesfully!");
+        addBookToLibrary();
+        const li = document.createElement('li');
+        li.className = 'list-item';
+        // const bookInfo = document.createTextNode(myLibrary[myLibrary.length - 1].info);
+        // li.appendChild(bookInfo);
+        li.innerText = myLibrary[myLibrary.length - 1].info;
+        bookList.appendChild(li);
+        console.log(myLibrary);
+        console.log(myLibrary[myLibrary.length - 1].info);
         modal.style.display = 'none';
         regForm.reset();
     }
 });
 
-const myLibrary = [ Siddhartha ];
+// const Siddhartha = new Book("./assets/covers/siddhartha.jpg", "Siddhartha", "Hermann Hesse", 1922, true);
 
-function Book(cover, title, author, year, readStatus) {
-  const uuid = window.crypto.randomUUID();
-  this.uuid = uuid;
-  this.cover = cover;
-  this.title = title;
-  this.author = author;
-  this.year = year;
-  this.readStatus = (readStatus === 'YES')?true:false;
-  const status = this.readStatus?'finished reading.':'not read yet.';
-
-  this.info = `${title} + ' by ' + ${author} + ', ' + 'published on ' + 
-        ${year} + ', ' + ${status}`;
-}
-
-const Siddhartha = new Book("./assets/covers/siddhartha.jpg", "Siddhartha", "Hermann Hesse", 1922, true);
-
-function addBookToLibrary() {
-  title.textContent
-}
 
