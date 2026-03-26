@@ -18,39 +18,61 @@
         <div class="subtitle">OPEN DIGITAL COMMUNITY LIBRARY</div>
       </div>
     </div>
-    
+
     <div class="logic">
-      <form action="#" method="post" class="form-container">
-        <div class="form-control" id="title">
-          <label for="title">Title of the Book:</label><br>
-          <input type="text" id='title' name="title" class="inputBox" placeholder="Eg: Siddhartha">
-          <small>Error Message</small>
-        </div>
+      <button id="openBtn" class="trigger-btn">New Book</button>
 
-        <div class="form-control" id="author">
-          <label for="author">Name of the Author:</label><br>
-          <input type="text" id='author' name="author" class="inputBox" placeholder="Eg: Hermann Hesse">
-          <small>Error Message</small>
-        </div>
+      <div id="formModal" class="modal-overlay">
+        <div class="modal-content">
+          <span id="closeBtn" class="close-icon">&times;</span>
 
-        <div class="form-control" id="year">
-          <label for="year">Year of Publish:</label><br>
-          <input type="year" id='year' name="year" class="inputBox" placeholder="Eg: 1922">
-          <small>Error Message</small>
-        </div>
+          <form id="regForm" novalidate>
+            <h2>Add New Book</h2>
 
-        <input type="radio" name="slider" id="yes-radio">
-        <input type="radio" name="slider" id="no-radio" checked>
+            <div class="input-group">
+              <label>Cover Image</label>
+              <div class="file-upload-wrapper">
+                <input type="file" id="coverImg" accept="images/*">
+              </div>
+              <span class="error-msg" id="picError"></span>
+            </div>
 
-        <div class="buttonGroup">
-          <div id="btn"></div>
-          <label for="yes-radio" class="toggle_btn">YES</label>
-          <label for="no-radio" class="toggle_btn">NO</label>
+            <div class="input-group">
+              <label>Title of the Book</label>
+              <input type="text" id="title" placeholder="Eg: Siddhartha">
+              <span class="error-msg" id="titleError"></span>
+            </div>
+
+            <div class="input-group">
+              <label>Full Name of the Author</label>
+              <input type="text" id="name" placeholder="Eg: Hermann Hesse">
+              <span class="error-msg" id="nameError"></span>
+            </div>
+
+            <div class="row">
+              <div class="input-group">
+                <label>Published Year</label>
+                <input type="number" id="pubYear" placeholder="Eg: 1922" min="1900" max="2026">
+                <span class="error-msg" id="yearError"></span>
+              </div>
+
+              <div class="input-group">
+                <label>Read Status</label>
+                <div class="radio-group">
+                  <label><input type="radio" name="status" value="yes"> Yes</label>
+                  <label><input type="radio" name="status" value="no"> No</label>
+                </div>
+                <span class="error-msg" id="statusError"></span>
+              </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit</button>
+          </form>
         </div>
-      </form>
+      </div>
     </div>
   </div>
-  <script type='text/javascript' src='scripts/script.js'></script>
+  <script type='text/javascript' src='./script.js' defer></script>
 </body>
 
 </html>
