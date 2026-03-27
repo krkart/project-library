@@ -1,12 +1,14 @@
 const modal = document.getElementById('formModal');
 const openBtn = document.getElementById('openBtn');
 const closeBtn = document.getElementById('closeBtn');
+const deleteBtn = document.getElementById('deleteBtn');
 const regForm = document.getElementById('regForm');
-const bookList = document.getElementById('books');
+const bookList = document.getElementById('bookList');
 
 // Open/Close logic
 openBtn.addEventListener('click', () => modal.style.display = 'flex');
 closeBtn.addEventListener('click', () => modal.style.display = 'none');
+// deleteBtn.addEventListener('click', () => );
 
 // List of books array
 const myLibrary = [];
@@ -20,11 +22,10 @@ function Book(id, title, author, year, readStatus) {
     this.readStatus = (readStatus === 'Yes') ? true : false;
     const status = this.readStatus ? `Finished reading` : `Not read yet`;
 
-    this.info = `Assigned ID: ${id}
-            Title of Book: ${title}
+    this.info = `Title of Book: ${title}
             Name of Author: ${author}
             Published Year: ${year}
-            Status: ${status}.`;
+            Read Status: ${status}.`;
 }
 
 // Validation & Books Array Main Logic
@@ -81,19 +82,20 @@ regForm.addEventListener('submit', (e) => {
         console.log(status.parentElement.innerText);
         alert("Your new book is added succesfully!");
         addBookToLibrary();
-        const li = document.createElement('li');
+        const li = document.createElement('li');        
         li.className = 'list-item';
+        const span = document.createElement('span');
+        span.id = 'deleteBtn';
+        span.className = 'close-icon';
         // const bookInfo = document.createTextNode(myLibrary[myLibrary.length - 1].info);
         // li.appendChild(bookInfo);
         li.innerText = myLibrary[myLibrary.length - 1].info;
         bookList.appendChild(li);
-        console.log(myLibrary);
-        console.log(myLibrary[myLibrary.length - 1].info);
+        li.appendChild(span);
         modal.style.display = 'none';
         regForm.reset();
     }
 });
 
 // const Siddhartha = new Book("./assets/covers/siddhartha.jpg", "Siddhartha", "Hermann Hesse", 1922, true);
-
 

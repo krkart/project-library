@@ -20,8 +20,9 @@
     </div>
 
     <div class="logic">
-      <button id="openBtn" class="trigger-btn">New Book</button>
-
+      <div id="listTitle" class="grid-item">LIST OF BOOKS</div>
+      <button id="openBtn" class="grid-item">New Book</button>
+      <ul id="bookList" class="grid-item"></ul>
       <div id="formModal" class="modal-overlay">
         <div class="modal-content">
           <span id="closeBtn" class="close-icon">&times;</span>
@@ -69,9 +70,6 @@
             <button type="submit" class="submit-btn">Submit</button>
           </form>
         </div>
-      </div>
-      <div class="library">
-        <ul id="books" class="book-list"></ul>
       </div>
     </div>
   </div>
