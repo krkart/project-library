@@ -1,17 +1,20 @@
 const modal = document.getElementById('formModal');
 const openBtn = document.getElementById('openBtn');
 const closeBtn = document.getElementById('closeBtn');
-const deleteBtn = document.getElementById('deleteBtn');
 const regForm = document.getElementById('regForm');
 const bookList = document.getElementById('bookList');
 
-// Open/Close logic
+// Open/Close Form logic
 openBtn.addEventListener('click', () => modal.style.display = 'flex');
 closeBtn.addEventListener('click', () => modal.style.display = 'none');
-// deleteBtn.addEventListener('click', () => );
+
+function deleteFunction() {
+    this.nextElementSibling?.remove();
+    this.remove();
+}
 
 // List of books array
-const myLibrary = [];
+const library = [];
 
 // Constructor to create Book info
 function Book(id, title, author, year, readStatus) {
@@ -22,10 +25,10 @@ function Book(id, title, author, year, readStatus) {
     this.readStatus = (readStatus === 'Yes') ? true : false;
     const status = this.readStatus ? `Finished reading` : `Not read yet`;
 
-    this.info = `Title of Book: ${title}
-            Name of Author: ${author}
-            Published Year: ${year}
-            Read Status: ${status}.`;
+    this.info = `Title of Book : ${title}
+            Name of Author : ${author}
+            Published Year : ${year}
+            Read Status : ${status}`;
 }
 
 // Validation & Books Array Main Logic
@@ -70,28 +73,30 @@ regForm.addEventListener('submit', (e) => {
     }
 
     if (isValid) {
+        // Append new book to library array
         function addBookToLibrary() {
             const uuidKey = window.crypto.randomUUID(); // Generate the UUID string
             const myObj = {};
 
             // Use the generated UUID as a dynamic property name (field)
             myObj[uuidKey] = new Book(uuidKey, title.value, author.value, year.value, status.parentElement.innerText);
-            myLibrary.push(myObj[uuidKey]);
+            library.push(myObj[uuidKey]);
         }
         
-        console.log(status.parentElement.innerText);
         alert("Your new book is added succesfully!");
         addBookToLibrary();
-        const li = document.createElement('li');        
-        li.className = 'list-item';
+        // Create delete button for the item
         const span = document.createElement('span');
         span.id = 'deleteBtn';
-        span.className = 'close-icon';
-        // const bookInfo = document.createTextNode(myLibrary[myLibrary.length - 1].info);
-        // li.appendChild(bookInfo);
-        li.innerText = myLibrary[myLibrary.length - 1].info;
+        span.className = 'delete-icon';
+        span.addEventListener("click", deleteFunction);
+        span.innerText = 'x';
+        bookList.appendChild(span);
+        // Create new book item in the list
+        const li = document.createElement('li');        
+        li.className = 'list-item';
+        li.innerText = library[library.length - 1].info;
         bookList.appendChild(li);
-        li.appendChild(span);
         modal.style.display = 'none';
         regForm.reset();
     }
