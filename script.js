@@ -8,9 +8,19 @@ const bookList = document.getElementById('bookList');
 openBtn.addEventListener('click', () => modal.style.display = 'flex');
 closeBtn.addEventListener('click', () => modal.style.display = 'none');
 
+// delete button logic
 function deleteFunction() {
-    this.nextElementSibling?.remove();
-    this.remove();
+    if (confirm("This will unlist the book. Are you sure you want to preceed?")) {
+        const index = library.findIndex(item => this.nextElementSibling.dataset.key in item);
+        if (index !== -1) { 
+            library.splice(index, 1); 
+        } else {
+            console.log(this.nextElementSibling.dataset.key);
+        }
+        this.nextElementSibling?.remove();
+        this.remove();
+        console.log(library);
+    }
 }
 
 // List of books array
@@ -73,18 +83,21 @@ regForm.addEventListener('submit', (e) => {
     }
 
     if (isValid) {
+        const uuidKey = window.crypto.randomUUID(); // Generate the UUID string
         // Append new book to library array
         function addBookToLibrary() {
-            const uuidKey = window.crypto.randomUUID(); // Generate the UUID string
             const myObj = {};
 
             // Use the generated UUID as a dynamic property name (field)
             myObj[uuidKey] = new Book(uuidKey, title.value, author.value, year.value, status.parentElement.innerText);
-            library.push(myObj[uuidKey]);
+            library.push(myObj);
         }
-        
+
         alert("Your new book is added succesfully!");
         addBookToLibrary();
+
+        const index = library.findIndex(item => uuidKey in item);
+        if (index !== -1) { console.log(index); }
         // Create delete button for the item
         const span = document.createElement('span');
         span.id = 'deleteBtn';
@@ -93,9 +106,10 @@ regForm.addEventListener('submit', (e) => {
         span.innerText = 'x';
         bookList.appendChild(span);
         // Create new book item in the list
-        const li = document.createElement('li');        
+        const li = document.createElement('li');
+        li.dataset.key = uuidKey;
         li.className = 'list-item';
-        li.innerText = library[library.length - 1].info;
+        li.innerText = library[library.length - 1][uuidKey].info;
         bookList.appendChild(li);
         modal.style.display = 'none';
         regForm.reset();
