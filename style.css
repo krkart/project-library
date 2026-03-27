@@ -78,7 +78,8 @@ body {
   flex-wrap: wrap;
   margin-top: 4%;
   justify-content: space-evenly;
-  gap: 15%;
+  gap: 10%;
+  padding: 0 5%;
 }
 
 #listTitle {
@@ -108,6 +109,7 @@ body {
 
 ul {
   list-style-type: none;
+  margin: 0 5%;
 }
 
 /* Target the Previous Sibling using :has() pseudo-class 
@@ -168,7 +170,7 @@ ul {
   font-family: monospace;
   font-size: 1.2rem;
   font-weight: 600;
-  color: #333;
+  color: bisque;
 }
 
 .close-icon:hover,
@@ -294,7 +296,7 @@ input:focus {
 }
 
 /* Mobile Tweak: Stack columns if screen is too narrow */
-@media (max-width: 540px) {
+@media (max-width: 600px) {
   .row {
     flex-direction: column;
     gap: 0;
@@ -327,5 +329,9 @@ input:focus {
   .logic {
     width: 100%;
     color: bisque;
+  }
+
+  ul {
+    margin: 0;
   }
 }
