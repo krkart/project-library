@@ -27,18 +27,23 @@ function deleteFunction() {
 const library = [];
 
 // Constructor to create Book info
-function Book(id, title, author, year, readStatus) {
+function Book(id, title, author, year, status) {
     this.id = id;
     this.title = title;
     this.author = author;
     this.year = year;
-    this.readStatus = (readStatus === 'Yes') ? true : false;
-    const status = this.readStatus ? `Finished reading` : `Not read yet`;
+    this.status = status;
+    const readStatus = this.status ? `Finished reading` : `Not read yet`;
 
     this.info = `Title of Book : ${title}
             Name of Author : ${author}
             Published Year : ${year}
-            Read Status : ${status}`;
+            Read Status : ${readStatus}`;
+
+    this.html = `Title of Book : <mark>${title}</mark><br>
+            Name of Author : <mark>${author}</mark><br>
+            Published Year : <mark>${year}</mark><br>
+            Read Status : <mark>${readStatus}</mark>`;
 }
 
 // Validation & Books Array Main Logic
@@ -65,7 +70,7 @@ regForm.addEventListener('submit', (e) => {
     }
 
     // 3. Publish Year Check
-    const year = document.getElementById('pubYear');
+    const year = document.getElementById('year');
     if (!year.value) {
         document.getElementById('yearError').innerText = "Enter year";
         isValid = false;
@@ -89,15 +94,13 @@ regForm.addEventListener('submit', (e) => {
             const myObj = {};
 
             // Use the generated UUID as a dynamic property name (field)
-            myObj[uuidKey] = new Book(uuidKey, title.value, author.value, year.value, status.parentElement.innerText);
+            myObj[uuidKey] = new Book(uuidKey, title.value, author.value, year.value, status.value);
             library.push(myObj);
         }
 
         alert("Your new book is added succesfully!");
         addBookToLibrary();
 
-        const index = library.findIndex(item => uuidKey in item);
-        if (index !== -1) { console.log(index); }
         // Create delete button for the item
         const span = document.createElement('span');
         span.id = 'deleteBtn';
@@ -105,11 +108,12 @@ regForm.addEventListener('submit', (e) => {
         span.addEventListener("click", deleteFunction);
         span.innerText = 'x';
         bookList.appendChild(span);
+
         // Create new book item in the list
         const li = document.createElement('li');
         li.dataset.key = uuidKey;
         li.className = 'list-item';
-        li.innerText = library[library.length - 1][uuidKey].info;
+        li.innerHTML = library[library.length - 1][uuidKey].html;
         bookList.appendChild(li);
         modal.style.display = 'none';
         regForm.reset();

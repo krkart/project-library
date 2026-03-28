@@ -121,12 +121,16 @@ ul {
 }
 
 .list-item {
-  border-top: solid 1px black;
-  padding: 0.6rem 1rem 0;
+  padding: 0.5rem 1rem;
   text-align: center;
-  font-style: monospace;
+  font-family: monospace;
   letter-spacing: 0.1rem;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.5);
+}
+
+mark {
+  background-color: transparent;
+  color: greenyellow;
 }
 
 .modal-overlay {
@@ -167,9 +171,8 @@ ul {
 
 .delete-icon {
   cursor: pointer;
-  font-family: monospace;
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 1.2rem;
-  font-weight: 600;
   color: bisque;
 }
 
