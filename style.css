@@ -93,18 +93,20 @@ body {
 
 #openBtn {
   align-items: center;
-  width: 90px;
-  height: 30px;
+  width: 120px;
+  height: 35px;
   min-width: min-content;
-  border: 2px solid gray;
-  background: #202020;
-  color: bisque;
+  border: 3px solid gray;
+  background: #E3B261;
+  color: black;
   font-family: 'Courier New', Courier, monospace;
+  font-size: 1rem;
   font-weight: 600;
 }
 
 #openBtn:hover {
   background: black;
+  color: bisque;
 }
 
 ul {
@@ -126,6 +128,7 @@ ul {
   font-family: monospace;
   letter-spacing: 0.1rem;
   background: rgba(0, 0, 0, 0.5);
+  color: bisque;
 }
 
 mark {
@@ -172,7 +175,7 @@ mark {
 .delete-icon {
   cursor: pointer;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: bisque;
 }
 
@@ -300,6 +303,10 @@ input:focus {
 
 /* Mobile Tweak: Stack columns if screen is too narrow */
 @media (max-width: 600px) {
+  .modal-content {
+    filter: invert(100%);
+  }
+
   .row {
     flex-direction: column;
     gap: 0;
@@ -327,11 +334,12 @@ input:focus {
     flex-direction: column;
     justify-items: center;
     width: 100%;
+    background: rgba(0, 0, 0, 0.5);
   }
 
   .logic {
     width: 100%;
-    color: bisque;
+    color: #E3B261;
   }
 
   ul {
