@@ -136,6 +136,10 @@ mark {
   color: greenyellow;
 }
 
+input[type="checkbox"] {
+  padding-top: 0.5rem;
+}
+
 .modal-overlay {
   display: none;
   position: fixed;

@@ -32,8 +32,10 @@ function Book(id, title, author, year, status) {
     this.title = title;
     this.author = author;
     this.year = year;
-    this.status = status;
+    this.status = JSON.parse(status);
     const readStatus = this.status ? `Finished reading` : `Not read yet`;
+    const checkBox = this.status ? `<input type="checkbox" id="toggle" checked>` :
+                                    `<input type="checkbox" id="toggle">`; 
 
     this.info = `Title of Book : ${title}
             Name of Author : ${author}
@@ -43,7 +45,11 @@ function Book(id, title, author, year, status) {
     this.html = `Title of Book : <mark>${title}</mark><br>
             Name of Author : <mark>${author}</mark><br>
             Published Year : <mark>${year}</mark><br>
-            Read Status : <mark>${readStatus}</mark>`;
+            Read Status : <mark>${readStatus}&emsp;</mark>` + `${checkBox}`;
+}
+
+function toggleStatus() {
+
 }
 
 // Validation & Books Array Main Logic
