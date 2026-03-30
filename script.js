@@ -34,22 +34,31 @@ function Book(id, title, author, year, status) {
     this.year = year;
     this.status = JSON.parse(status);
     const readStatus = this.status ? `Finished reading` : `Not read yet`;
-    const checkBox = this.status ? `<input type="checkbox" id="toggle" checked>` :
-                                    `<input type="checkbox" id="toggle">`; 
+    const checkBox = this.status ? `<input type="checkbox" onclick="toggler(this)" checked>` :
+                                    `<input type="checkbox" onclick="toggler(this)">`; 
 
-    this.info = `Title of Book : ${title}
-            Name of Author : ${author}
-            Published Year : ${year}
-            Read Status : ${readStatus}`;
-
-    this.html = `Title of Book : <mark>${title}</mark><br>
+    this.info = function() {
+            return `Title of Book : <mark>${title}</mark><br>
             Name of Author : <mark>${author}</mark><br>
             Published Year : <mark>${year}</mark><br>
-            Read Status : <mark>${readStatus}&emsp;</mark>` + `${checkBox}`;
+            Read Status : <mark>${readStatus}</mark>` + `&emsp;${checkBox}`;
+            }
 }
 
-function toggleStatus() {
+// prototype to update read status of selected array item
+function Status(id, status) {
 
+}
+
+// read status updater in DOM
+function toggler(checkBox) {
+    if (checkBox.previousElementSibling.innerText === 'Finished reading') {
+        checkBox.previousElementSibling.innerText = 'Not read yet'
+        // new Status(checkBox.parentElement.dataset.key, false)
+    } else {
+        checkBox.previousElementSibling.innerText = 'Finished reading'
+        // new Status(checkBox.parentElement.dataset.key, true)
+    }
 }
 
 // Validation & Books Array Main Logic
@@ -119,7 +128,7 @@ regForm.addEventListener('submit', (e) => {
         const li = document.createElement('li');
         li.dataset.key = uuidKey;
         li.className = 'list-item';
-        li.innerHTML = library[library.length - 1][uuidKey].html;
+        li.innerHTML = library[library.length - 1][uuidKey].info();
         bookList.appendChild(li);
         modal.style.display = 'none';
         regForm.reset();
