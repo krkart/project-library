@@ -33,33 +33,48 @@ function Book(id, title, author, year, status) {
     this.author = author;
     this.year = year;
     this.status = JSON.parse(status);
-    const readStatus = this.status ? `Finished reading` : `Not read yet`;
-    const checkBox = this.status ? `<input type="checkbox" onclick="toggler(this)" checked>` :
-                                    `<input type="checkbox" onclick="toggler(this)">`; 
 
-    this.info = function() {
-            return `Title of Book : <mark>${title}</mark><br>
-            Name of Author : <mark>${author}</mark><br>
-            Published Year : <mark>${year}</mark><br>
-            Read Status : <mark>${readStatus}</mark>` + `&emsp;${checkBox}`;
-            }
+    this.readStatus = function() {
+        return this.status ? `Finished reading` : `Not read yet`;
+    }
+
+    this.color = this.status ? 'greenyellow' : 'hotpink';
+
 }
+
+Book.prototype.checkBox = function() {
+        return this.status ? 
+            `<input type="checkbox" onclick="toggler(this)" checked>` :
+            `<input type="checkbox" onclick="toggler(this)">`;
+    }
+
+Book.prototype.info = function() {
+        return `Title of Book : <mark>${this.title}</mark><br>
+                Name of Author : <mark>${this.author}</mark><br>
+                Published Year : <mark>${this.year}</mark><br>
+                Read Status : <mark style="color: ${this.color};">${this.readStatus()}</mark>` + `&emsp;${this.checkBox()}`;
+    }
 
 // prototype to update read status of selected array item
 function Status(id, status) {
-
+    this.id = id;
+    this.status = JSON.parse(status);
 }
 
 // read status updater in DOM
 function toggler(checkBox) {
     if (checkBox.previousElementSibling.innerText === 'Finished reading') {
-        checkBox.previousElementSibling.innerText = 'Not read yet'
-        // new Status(checkBox.parentElement.dataset.key, false)
+        checkBox.previousElementSibling.innerText = 'Not read yet';
+        checkBox.previousElementSibling.style.color = 'hotpink';
+        new Status(checkBox.parentElement.dataset.key, false);
     } else {
-        checkBox.previousElementSibling.innerText = 'Finished reading'
-        // new Status(checkBox.parentElement.dataset.key, true)
+        checkBox.previousElementSibling.innerText = 'Finished reading';
+        checkBox.previousElementSibling.style.color = 'greenyellow';        
+        new Status(checkBox.parentElement.dataset.key, true);
     }
 }
+
+Object.setPrototypeOf('Book.prototype', Status.prototype);
 
 // Validation & Books Array Main Logic
 regForm.addEventListener('submit', (e) => {
