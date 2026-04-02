@@ -42,48 +42,35 @@ function Book(id, title, author, year, status) {
     }
 }
 
-// Book.prototype.statusTheme = function() {
-//     return this.status ? 
-//         this.checkBox.parentElement.style.color = read : 
-//         this.checkBox.parentElement.style.color = unread; 
-// }
-
 Book.prototype.checkBox = function() {
     return this.status ? 
-        `<input type="checkbox" onclick="toggler(this)" title='Switch Status' checked>` :
-        `<input type="checkbox" onclick="toggler(this)" title='Switch Status'>`;
+        `<input type="checkbox" onclick="toggleStatus(this)" title='Toggle Status' checked>` :
+        `<input type="checkbox" onclick="toggleStatus(this)" title='Toggle Status'>`;
 }
 
 Book.prototype.info = function() {
     return `<h1>${this.title}</h1>
             <h4><i>Written by </i>${this.author}</h4>
-            <h4><i>Published On </i>${this.year}</h4>
+            <h4><i>Published in </i>${this.year}</h4>
             ${this.checkBox()}&nbsp;<i>${this.readStatus()}</i>`;
 }
 
-// prototype to update read status of selected array item
-function Status(id, status) {
-    this.id = id;
-    this.status = JSON.parse(status);
-    const index = library.findIndex(item => this.id in item);
-    library[index][this.id].status = this.status;
-}
-
-Object.setPrototypeOf(Book.prototype, Status.prototype);
-
-// read status updater in DOM & Array
-function toggler(checkBox) {
+// read status updater in UI & Array
+function toggleStatus(checkBox) {
+    let status;
     const id = checkBox.parentElement.dataset.key;
     const statusColumn = checkBox.nextElementSibling;
     if (statusColumn.innerText === 'Finished reading') {
         statusColumn.innerText = 'Not read yet';
         checkBox.parentElement.style.color = unread;
-        new Status(id, false);
+        status = false;
     } else {
         statusColumn.innerText = 'Finished reading';
         checkBox.parentElement.style.color = read;        
-        new Status(id, true);
+        status = true;
     }
+    const index = library.findIndex(item => id in item);
+    library[index][id].status = status;
 }
 
 // Validation & Books Array Main Logic
@@ -100,6 +87,7 @@ regForm.addEventListener('submit', (e) => {
     } else {
         document.getElementById('titleError').innerText = "";
     }
+
     // 2. Name Check
     const author = document.getElementById('name');
     if (author.value.trim() === "") {
@@ -147,7 +135,7 @@ regForm.addEventListener('submit', (e) => {
         img.addEventListener("click", deleteFunction);
         bookList.appendChild(img);
 
-        // Create new book item in the list
+        // Create new book item in the UI
         const li = document.createElement('li');
         li.dataset.key = uuidKey;
         li.className = 'list-item';

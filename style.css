@@ -88,6 +88,7 @@ body {
   font-weight: 600;
   letter-spacing: clamp(0.0rem, 0.5vw, 0.5rem);
   text-align: center;
+  color: darkolivegreen;
   /* white-space: nowrap; */
 }
 
@@ -350,7 +351,6 @@ input:focus {
 
   .logic {
     width: 100%;
-    color: #E3B261;
   }
 
   ul {
