@@ -91,53 +91,61 @@ body {
   /* white-space: nowrap; */
 }
 
+i {
+  font-size: smaller;
+  font-weight: 200;
+}
+
 #openBtn {
   align-items: center;
   width: 120px;
-  height: 35px;
+  height: 40px;
   min-width: min-content;
-  border: 3px solid gray;
-  background: #E3B261;
-  color: black;
+  border: none;
+  border-radius: 5px;
+  background: darkolivegreen;
+  color: bisque;
   font-family: 'Courier New', Courier, monospace;
   font-size: 1rem;
   font-weight: 600;
 }
 
 #openBtn:hover {
-  background: black;
-  color: bisque;
+  background: rgb(50, 70, 30);
 }
 
 ul {
   list-style-type: none;
-  margin: 0 5%;
+  margin: 1% 5%;
 }
 
 /* Target the Previous Sibling using :has() pseudo-class 
    Positioning .delete-icon wrt its next sibling li */
 .delete-icon:has(+ li) {
   position: relative;
-  top: 1.5rem;
-  right: -95%;
+  top: 2.5rem;
+  right: -93%;
+}
+
+.delete-icon {
+  cursor: pointer;
+  content: url("./assets/icons/delete.png");
+}
+
+.delete-icon:hover {
+  content: url("./assets/icons/delete-hover.png");
 }
 
 .list-item {
   padding: 0.5rem 1rem;
   text-align: center;
-  font-family: monospace;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   letter-spacing: 0.1rem;
-  background: rgba(0, 0, 0, 0.5);
-  color: bisque;
-}
-
-mark {
-  background-color: transparent;
-  color: greenyellow;
+  background: rgba(0, 0, 0, 0.6);
 }
 
 input[type="checkbox"] {
-  padding-top: 0.5rem;
+  vertical-align: middle;
 }
 
 .modal-overlay {
@@ -149,7 +157,8 @@ input[type="checkbox"] {
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(0.25rem); /* 4px */
+  backdrop-filter: blur(0.25rem);
+  /* 4px */
   justify-content: center;
   align-items: center;
 }
@@ -176,15 +185,9 @@ input[type="checkbox"] {
   color: #888;
 }
 
-.delete-icon {
-  cursor: pointer;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 1rem;
-  color: bisque;
-}
 
-.close-icon:hover,
-.delete-icon:hover {
+
+.close-icon:hover {
   color: crimson;
 }
 
@@ -243,7 +246,7 @@ input[type="file"]::file-selector-button {
   border: none;
   border-radius: 0.25rem;
   cursor: pointer;
-  font-family: 'Inter', sans-serif;
+  font-family: sans-serif;
   font-size: 0.75rem;
 }
 
@@ -307,8 +310,12 @@ input:focus {
 
 /* Mobile Tweak: Stack columns if screen is too narrow */
 @media (max-width: 600px) {
-  .modal-content {
+  .modal-content, .delete-icon {
     filter: invert(100%);
+  }
+
+  .delete-icon:hover {
+    filter: none;
   }
 
   .row {
@@ -330,7 +337,7 @@ input:focus {
     min-height: 10vh;
     width: 100%;
     min-width: none;
-    background: none;  
+    background: none;
   }
 
   .header {

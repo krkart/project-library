@@ -8,6 +8,9 @@ const bookList = document.getElementById('bookList');
 openBtn.addEventListener('click', () => modal.style.display = 'flex');
 closeBtn.addEventListener('click', () => modal.style.display = 'none');
 
+const read = 'aquamarine';
+const unread = 'salmon';
+
 // delete button logic
 function deleteFunction() {
     if (confirm("This will unlist the book. Are you sure you want to preceed?")) {
@@ -37,21 +40,25 @@ function Book(id, title, author, year, status) {
     this.readStatus = function() {
         return this.status ? `Finished reading` : `Not read yet`;
     }
-
-    this.color = function() { return this.status ? 'greenyellow' : 'hotpink'; }
 }
+
+// Book.prototype.statusTheme = function() {
+//     return this.status ? 
+//         this.checkBox.parentElement.style.color = read : 
+//         this.checkBox.parentElement.style.color = unread; 
+// }
 
 Book.prototype.checkBox = function() {
     return this.status ? 
-        `<input type="checkbox" onclick="toggler(this)" checked>` :
-        `<input type="checkbox" onclick="toggler(this)">`;
+        `<input type="checkbox" onclick="toggler(this)" title='Switch Status' checked>` :
+        `<input type="checkbox" onclick="toggler(this)" title='Switch Status'>`;
 }
 
 Book.prototype.info = function() {
-    return `Title of Book : <mark>${this.title}</mark><br>
-            Name of Author : <mark>${this.author}</mark><br>
-            Published Year : <mark>${this.year}</mark><br>
-            Read Status : <mark style="color: ${this.color()};">${this.readStatus()}</mark>` + `&emsp;${this.checkBox()}`;
+    return `<h1>${this.title}</h1>
+            <h4><i>Written by </i>${this.author}</h4>
+            <h4><i>Published On </i>${this.year}</h4>
+            ${this.checkBox()}&nbsp;<i>${this.readStatus()}</i>`;
 }
 
 // prototype to update read status of selected array item
@@ -67,14 +74,14 @@ Object.setPrototypeOf(Book.prototype, Status.prototype);
 // read status updater in DOM & Array
 function toggler(checkBox) {
     const id = checkBox.parentElement.dataset.key;
-    const statusColumn = checkBox.previousElementSibling;
+    const statusColumn = checkBox.nextElementSibling;
     if (statusColumn.innerText === 'Finished reading') {
         statusColumn.innerText = 'Not read yet';
-        statusColumn.style.color = 'hotpink';
+        checkBox.parentElement.style.color = unread;
         new Status(id, false);
     } else {
         statusColumn.innerText = 'Finished reading';
-        statusColumn.style.color = 'greenyellow';        
+        checkBox.parentElement.style.color = read;        
         new Status(id, true);
     }
 }
@@ -127,7 +134,7 @@ regForm.addEventListener('submit', (e) => {
             const myObj = {};
 
             // Use the generated UUID as a dynamic property name (field)
-            myObj[uuidKey] = new Book(uuidKey, title.value, author.value, year.value, status.value);
+            myObj[uuidKey] = new Book(uuidKey, title.value.trim(), author.value.trim(), year.value, status.value);
             library.push(myObj);
         }
 
@@ -135,17 +142,16 @@ regForm.addEventListener('submit', (e) => {
         addBookToLibrary();
 
         // Create delete button for the item
-        const span = document.createElement('span');
-        span.id = 'deleteBtn';
-        span.className = 'delete-icon';
-        span.addEventListener("click", deleteFunction);
-        span.innerText = 'x';
-        bookList.appendChild(span);
+        const img = document.createElement('img');
+        img.className = 'delete-icon';
+        img.addEventListener("click", deleteFunction);
+        bookList.appendChild(img);
 
         // Create new book item in the list
         const li = document.createElement('li');
         li.dataset.key = uuidKey;
         li.className = 'list-item';
+        li.style.color = JSON.parse(status.value) ? read : unread;
         li.innerHTML = library[library.length - 1][uuidKey].info();
         bookList.appendChild(li);
         modal.style.display = 'none';
@@ -154,4 +160,3 @@ regForm.addEventListener('submit', (e) => {
 });
 
 // const Siddhartha = new Book("./assets/covers/siddhartha.jpg", "Siddhartha", "Hermann Hesse", 1922, true);
-
