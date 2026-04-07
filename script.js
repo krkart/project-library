@@ -22,7 +22,6 @@ function deleteFunction() {
         }
         this.nextElementSibling?.remove();
         this.remove();
-        console.log(library);
     }
 }
 
