@@ -115,7 +115,8 @@ regForm.addEventListener('submit', (e) => {
     }
 
     if (isValid) {
-        const uuidKey = window.crypto.randomUUID(); // Generate the UUID string
+        // const uuidKey = window.crypto.randomUUID(); // Generate the UUID string
+        const uuidKey = Math.random().toString(36).substring(2, 15);
         // Append new book to library array
         function addBookToLibrary() {
             const myObj = {};
@@ -131,6 +132,7 @@ regForm.addEventListener('submit', (e) => {
         // Create delete button for the item
         const img = document.createElement('img');
         img.className = 'delete-icon';
+        img.title = 'Delete this card';
         img.addEventListener("click", deleteFunction);
         bookList.appendChild(img);
 
